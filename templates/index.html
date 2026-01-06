@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Chamados TI - Souza Araujo</title>
+    <style>
+        /* Cores da Empresa */
+        :root {
+            --azul-primario: #003366;
+            --vermelho-logo: #cc0000;
+            --cinza-fundo: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--cinza-fundo);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--azul-primario);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--vermelho-logo);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-placeholder {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: #fdfdfd;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        h3 { color: var(--azul-primario); margin-top: 0; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn-enviar {
+            background-color: var(--vermelho-logo);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-enviar:hover {
+            background-color: #990000;
+            transform: translateY(-2px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th {
+            background-color: var(--azul-primario);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .badge-alta { 
+            background-color: var(--vermelho-logo); 
+            color: white; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            font-weight: bold;
+        }
+        
+        .badge-media { background-color: #f39c12; color: white; padding: 4px 8px; border-radius: 4px; }
+        .status-concluido { color: #27ae60; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="{% static 'Logo Branco.png' %}" alt="Logo" style="height: 80px; width: auto;">
+            <div class="logo-placeholder">
+                <span style="color: white;">Souza</span> <span style="color: #cc0000;">Araujo</span>
+            </div>
+        </div>
+        <p style="margin: 8px 0 0 0; font-size: 14px; opacity: 0.9;">Logística & Transporte - Portal de Suporte TI</p>
+    </div>
+</header>
+
+<div class="container">
+   
+    <h3>📝 Abrir Novo Chamado</h3>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-grid">
+            <select name="titulo" required style="grid-column: span 2;">
+                <option value="">Selecione o Tipo de Problema</option>
+                <optgroup label="Rede e Internet">
+                    <option value="Sem Internet">Sem Internet</option>
+                    <option value="Lentidão no Sistema">Lentidão no Sistema</option>
+                    <option value="Problema no Wi-Fi">Problema no Wi-Fi</option>
+                </optgroup>
+                <optgroup label="Equipamentos">
+                    <option value="Computador/Notebook">Computador/Notebook não liga</option>
+                    <option value="Impressora">Problema na Impressora</option>
+                    <option value="Periféricos">Teclado / Mouse / Monitor</option>
+                </optgroup>
+                <optgroup label="Sistemas e Acessos">
+                    <option value="Login/Senha">Esqueci minha Senha / Bloqueio</option>
+                    <option value="Globus">Globus</option>
+                    <option value="Oraculo">Oraculo</option>
+                </optgroup>
+                <option value="Outros">Outros (Descrever nos detalhes)</option>
+            </select>
+                         
+            <select name="setor" required>
+                <option value="">Selecione seu Setor</option>
+                <option value="Operacional/Gate">Operacional/Gate</option>
+                <option value="Manutencao/Almoxarifado">Manutenção/Almoxarifado</option>
+                <option value="Financeiro">Financeiro</option>
+                <option value="RH">RH</option>
+                <option value="Diretoria">Diretoria</option>
+                <option value="Juridico">Juridico</option>
+                <option value="Contabilidade">Contabilidade</option>
+                <option value="Comercial">Comercial</option>
+            </select>
+
+            <input type="text" name="ramal" placeholder="Ramal/Telefone" required>
+            <input type="text" name="solicitante" placeholder="Seu Nome" required>
+            
+            <textarea name="descricao" placeholder="Detalhes do problema..." rows="2" style="grid-column: span 2;"></textarea>
+            
+            <div style="grid-column: span 2;">
+                <label style="display:block; margin-bottom:5px; color:#666; font-size: 14px;">Anexar print do erro (opcional):</label>
+                <input type="file" name="imagem" accept="image/*">
+            </div>
+
+            <button type="submit" class="btn-enviar" style="grid-column: span 2;">ENVIAR CHAMADO</button>
+        </div>
+    </form>
+
+    <br>
+    <hr>
+    
+    <h3>📊 Painel de Acompanhamento</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Solicitante</th>
+                <th>Assunto</th>
+                <th>Status</th>
+                <th>Prioridade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chamado in chamados %}
+            <tr>
+                <td>{{ chamado.data_criacao|date:"d/m/y H:i" }}</td>
+                <td>{{ chamado.solicitante }}</td>
+                <td><strong>{{ chamado.titulo }}</strong></td>
+                <td>
+                    <span class="{% if chamado.status == 'Concluido' %}status-concluido{% endif %}">
+                        {{ chamado.status }}
+                    </span>
+                </td>
+                <td>
+                    {% if chamado.prioridade == 'Alta' %}
+                        <span class="badge-alta">ALTA</span>
+                    {% elif chamado.prioridade == 'Media' %}
+                        <span class="badge-media">MÉDIA</span>
+                    {% else %}
+                        {{ chamado.prioridade|default:"---" }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 20px;">Nenhum chamado registrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

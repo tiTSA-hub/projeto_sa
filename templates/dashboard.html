@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard TI - Souza Araújo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 20px; }
+        .header { background: #003366; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 30px; }
+        
+        /* Estilo dos Cards */
+        .cards-container { display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); min-width: 180px; text-align: center; border-top: 6px solid; }
+        
+        .card-total { border-top-color: #003366; }      /* Azul */
+        .card-pendente { border-top-color: #cc0000; }   /* Vermelho */
+        .card-concluido { border-top-color: #27ae60; }  /* Verde */
+        
+        .card h3 { margin: 0; color: #555; font-size: 14px; text-transform: uppercase; }
+        .card p { margin: 10px 0 0; font-size: 32px; font-weight: bold; color: #333; }
+
+        .chart-container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; }
+        .btn-voltar { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #cc0000; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📊 Painel de Controle TI - Souza Araújo</h1>
+</div>
+
+<div class="cards-container">
+    <div class="card card-total">
+        <h3>Total Geral</h3>
+        <p>{{ total }}</p>
+    </div>
+    <div class="card card-pendente">
+        <h3>Pendentes</h3>
+        <p>{{ pendentes }}</p>
+    </div>
+    <div class="card card-concluido">
+        <h3>Concluídos</h3>
+        <p>{{ concluidos }}</p>
+    </div>
+</div>
+
+<div class="chart-container">
+    <h2 style="text-align: center; color: #003366;">Chamados por Setor</h2>
+    <canvas id="graficoSetores"></canvas>
+    <center><a href="/" class="btn-voltar">Voltar para Chamados</a></center>
+</div>
+
+<script>
+    const ctx = document.getElementById('graficoSetores').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels|safe }},
+            datasets: [{
+                label: 'Quantidade de Chamados',
+                data: {{ valores|safe }},
+                backgroundColor: '#003366',
+                borderRadius: 5
+            }]
+        },
+        options: {
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+        }
+    });
+</script>
+
+</body>
+</html>
