@@ -12,8 +12,8 @@ DEBUG = True
 
 # CONFIGURAÇÃO DE IP (Atualizado com o seu IP 10.1.0.14)
 ALLOWED_HOSTS = ['10.1.0.14', '172.17.0.1', '127.0.0.1', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['http://10.1.0.14', 'http://127.0.0.1']
-
+CSRF_TRUSTED_ORIGINS = ['http://10.1.0.git14', 'http://127.0.0.1']
+git add sistema_sa/settings.py
 # Aplicativos instalados
 INSTALLED_APPS = [
     'django.contrib.admin',
