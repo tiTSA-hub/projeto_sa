@@ -13,8 +13,8 @@ def index(request):
             descricao=request.POST.get('descricao'),
             setor=request.POST.get('setor'),
             ramal=request.POST.get('ramal'),
-            solicitante=request.POST.get('solicitante'), # Faltava a vírgula aqui
-            imagem=foto_enviada # Salvando o arquivo no campo certo
+            solicitante=request.POST.get('solicitante'),
+            imagem=foto_enviada 
         )
         return redirect('index')
 
@@ -24,16 +24,13 @@ def index(request):
     return render(request, 'index.html', {'chamados': chamados})
 
 def dashboard(request):
- from django.db.models import Count # Verifique se esta linha está no topo
-
-def dashboard(request):
     # Contadores para os Cards (o que aparece no topo)
     total = Chamado.objects.count()
     pendentes = Chamado.objects.filter(status='Pendente').count()
     em_atendimento = Chamado.objects.filter(status='Em Atendimento').count()
     concluidos = Chamado.objects.filter(status='Concluido').count()
 
-    # Dados para o Gráfico de Setores (o que já tínhamos)
+    # Dados para o Gráfico de Setores
     dados_setor = Chamado.objects.values('setor').annotate(total=Count('id'))
     labels = [item['setor'] for item in dados_setor]
     valores = [item['total'] for item in dados_setor]

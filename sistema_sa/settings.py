@@ -4,16 +4,16 @@ import os
 # Caminho base do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# CHAVE DE SEGURANÇA (Mantenha a sua original se preferir)
+# CHAVE DE SEGURANÇA
 SECRET_KEY = 'django-insecure-3_e-^v)%#&2dkc2szolrsqiy=bk*nucbutcaxa7n&@f=mfzjdo'
 
-# DEBUG: True para desenvolvimento, False para produção final
+# DEBUG: True para desenvolvimento
 DEBUG = True
 
-# CONFIGURAÇÃO DE IP (Atualizado com o seu IP 10.1.0.14)
+# CONFIGURAÇÃO DE IP
 ALLOWED_HOSTS = ['10.1.0.14', '172.17.0.1', '127.0.0.1', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['http://10.1.0.git14', 'http://127.0.0.1']
-git add sistema_sa/settings.py
+CSRF_TRUSTED_ORIGINS = ['http://10.1.0.14', 'http://127.0.0.1']
+
 # Aplicativos instalados
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chamados', # Seu App
+    'chamados', 
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sistema_sa.wsgi.application'
 
-# Banco de Dados SQLite
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -63,19 +62,19 @@ DATABASES = {
     }
 }
 
-# Internacionalização (Brasil)
+# Internacionalização
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-# Arquivos Estáticos (Configuração de Produção)
+# Arquivos Estáticos
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Uploads de Mídia
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

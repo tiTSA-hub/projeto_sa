@@ -1,6 +1,6 @@
 from django.db import models
 
-class Chamado(models.Model):  # Certifique-se que o 'C' é maiúsculo!
+class Chamado(models.Model):
     SETOR_CHOICES = [
         ('Diretoria', 'Diretoria'),
         ('Financeiro', 'Financeiro'),
@@ -9,7 +9,7 @@ class Chamado(models.Model):  # Certifique-se que o 'C' é maiúsculo!
         ('RH', 'RH'),
         ('Comercial', 'Comercial'),
         ('Operacional/Gate', 'Operacional/Gate'),
-        ('Manutencao/Almoxarifado', 'Matutencao/Almoxarifado'),
+        ('Manutencao/Almoxarifado', 'Manutencao/Almoxarifado'), # Corrigido aqui
     ]
 
     titulo = models.CharField(max_length=200)
@@ -24,4 +24,4 @@ class Chamado(models.Model):  # Certifique-se que o 'C' é maiúsculo!
     imagem = models.ImageField(upload_to='chamados/', null=True, blank=True)
 
     def __str__(self):
-        return self.titulo
+        return f"{self.titulo} - {self.solicitante}"

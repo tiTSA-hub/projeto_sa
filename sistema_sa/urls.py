@@ -16,13 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from chamados.views import index, dashboard  # Importa a lógica que você criou
+from chamados.views import index, dashboard  
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),  # Isso diz: "No endereço principal, mostre o index"
-    path('dashboard/', dashboard, name='dashboard'), # Nova rota
+    path('', index, name='index'),  
+    path('dashboard/', dashboard, name='dashboard'), 
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# ESTA PARTE É A QUE ESTAVA FALTANDO:
+# Ela garante que tanto a logo (STATIC) quanto os anexos (MEDIA) funcionem
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
