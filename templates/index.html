@@ -19,20 +19,18 @@
             padding: 0;
         }
 
-        /* Header ajustado para Logos Grandes */
         header {
             background-color: white;
             color: var(--azul-primario);
-            padding: 20px 40px; /* Mais espaço interno */
+            padding: 20px 40px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-bottom: 6px solid var(--azul-primario); /* Linha mais grossa para destaque */
+            border-bottom: 6px solid var(--azul-primario);
             position: relative;
-            min-height: 180px; /* Garante altura mínima para a logo */
+            min-height: 180px;
             display: flex;
             align-items: center;
         }
 
-        /* Linha Vermelha (Metade Direita) */
         header::after {
             content: "";
             position: absolute;
@@ -51,7 +49,6 @@
             margin: 0 auto;
         }
 
-        /* LOGO MAXIMIZADA: Aumentada para 180px para ler o lema */
         .logo-img {
             height: 180px; 
             width: auto;
@@ -59,10 +56,9 @@
             transition: transform 0.3s;
         }
 
-        /* Frase Centralizada */
         .frase-central {
             position: absolute;
-            left: 55%; /* Leve ajuste para não bater na logo gigante */
+            left: 55%;
             transform: translateX(-50%);
             white-space: nowrap;
             text-align: center;
@@ -70,7 +66,7 @@
 
         .frase-central h1 {
             margin: 0;
-            font-size: 38px; /* Aumentei o texto para acompanhar a logo */
+            font-size: 38px;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 800;
@@ -88,7 +84,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        /* Mantendo o restante do CSS padrão para funcionamento */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -104,6 +99,7 @@
             padding: 14px;
             border: 1px solid #ccc;
             border-radius: 6px;
+            box-sizing: border-box; /* Garante que o padding não quebre o layout */
         }
 
         .btn-enviar {
@@ -121,6 +117,7 @@
         table { width: 100%; border-collapse: collapse; margin-top: 30px; }
         th { background-color: var(--azul-primario); color: white; padding: 15px; text-align: left; }
         td { padding: 15px; border-bottom: 1px solid #ddd; }
+        .status-concluido { font-weight: bold; color: #28a745; }
     </style>
 </head>
 <body>
@@ -149,20 +146,28 @@
         <div class="form-grid">
             <select name="titulo" required style="grid-column: span 2;">
                 <option value="">Selecione o Tipo de Problema</option>
+                
+                <optgroup label="Sistemas e Softwares">
+                    <option value="Globus">Globus</option>
+                    <option value="Oráculo">Oráculo</option>
+                </optgroup>
+
                 <optgroup label="Rede e Internet">
                     <option value="Sem Internet">Sem Internet</option>
                     <option value="Lentidão no Sistema">Lentidão no Sistema</option>
                 </optgroup>
+
                 <optgroup label="Equipamentos">
                     <option value="Computador/Notebook">Computador/Notebook não liga</option>
                     <option value="Impressora">Problema na Impressora</option>
                 </optgroup>
+                
                 <option value="Outros">Outros</option>
             </select>
                          
             <select name="setor" required>
                 <option value="">Selecione seu Setor</option>
-                <option value="Operacional/Gate">Operacional/Gate</option>
+                <option value="Diretoria">Diretoria</option> <option value="Operacional/Gate">Operacional/Gate</option>
                 <option value="Manutencao/Almoxarifado">Manutenção/Almoxarifado</option>
                 <option value="Financeiro">Financeiro</option>
                 <option value="RH">RH</option>
