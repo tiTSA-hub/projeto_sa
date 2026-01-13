@@ -1,20 +1,34 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Chamado
+from .models import Chamado, Interacao
+
+class InteracaoInline(admin.TabularInLine):
+    models = Interacao
+    extra = 1
+    readonly_fields = ('data_registro', 'agente')
 
 # Esta é a configuração da tabela que você verá
+@admin.rester(Chamados)
 class ChamadoAdmin(admin.ModelAdmin):
     # Aqui definimos as colunas EXATAS que vão aparecer na sua lista
-    list_display = ('id', 'titulo', 'solicitante', 'setor', 'status', 'prioridade', 'ver_imagem')
+    list_display = ('id', 'titulo', 'solicitante', 'agente_responsavel', 'setor', 'status', 'prioridade', 'ver_imagem')
     
     # Isso faz com que você mude o status sem precisar abrir o chamado
     list_editable = ('status', 'prioridade')
     
     # Isso cria a barra lateral de filtros que você já viu
-    list_filter = ('setor', 'status', 'prioridade')
+    list_filter = ('setor', 'status', 'prioridade', 'agente_responsavel')
     
     # Isso cria a barra de busca
-    search_fields = ('titulo', 'solicitante')
+    search_fields = ('titulo', 'solicitante', 'descricao','usuario_solicitante', 'agente_responsavel', 'status', 'prioridade')
+
+    inlines = [InteracaoInLine]
+
+    def save_model(self,request, obj, form, change):
+        if obj.status == 'E' and not obj.agente_responsavel:
+            obj.agente_responsavel = requeste.user
+        super().save_model(request, obj, form, change)
+        
 
     # Esta função cria o link para você ver o print do erro
     def ver_imagem(self, obj):
