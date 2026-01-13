@@ -76,7 +76,7 @@
         .texto-vermelho { color: var(--vermelho-logo); }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px; /* Aumentado levemente para caber a nova coluna */
             margin: 40px auto;
             background: white;
             padding: 30px;
@@ -99,7 +99,7 @@
             padding: 14px;
             border: 1px solid #ccc;
             border-radius: 6px;
-            box-sizing: border-box; /* Garante que o padding não quebre o layout */
+            box-sizing: border-box;
         }
 
         .btn-enviar {
@@ -115,9 +115,10 @@
         }
 
         table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-        th { background-color: var(--azul-primario); color: white; padding: 15px; text-align: left; }
-        td { padding: 15px; border-bottom: 1px solid #ddd; }
+        th { background-color: var(--azul-primario); color: white; padding: 15px; text-align: left; font-size: 14px; }
+        td { padding: 15px; border-bottom: 1px solid #ddd; font-size: 14px; }
         .status-concluido { font-weight: bold; color: #28a745; }
+        .tecnico-nome { color: #555; font-style: italic; }
     </style>
 </head>
 <body>
@@ -167,7 +168,8 @@
                          
             <select name="setor" required>
                 <option value="">Selecione seu Setor</option>
-                <option value="Diretoria">Diretoria</option> <option value="Operacional/Gate">Operacional/Gate</option>
+                <option value="Diretoria">Diretoria</option>
+                <option value="Operacional/Gate">Operacional/Gate</option>
                 <option value="Manutencao/Almoxarifado">Manutenção/Almoxarifado</option>
                 <option value="Financeiro">Financeiro</option>
                 <option value="RH">RH</option>
@@ -201,6 +203,7 @@
                 <th>Assunto</th>
                 <th>Status</th>
                 <th>Prioridade</th>
+                <th>Técnico Responsável</th>
             </tr>
         </thead>
         <tbody>
@@ -211,9 +214,10 @@
                 <td><strong>{{ chamado.titulo }}</strong></td>
                 <td><span class="status-concluido">{{ chamado.status }}</span></td>
                 <td>{{ chamado.prioridade|default:"---" }}</td>
+                <td class="tecnico-nome">{{ chamado.tecnico|default:"Aguardando Atribuição" }}</td>
             </tr>
             {% empty %}
-            <tr><td colspan="5" style="text-align: center; padding: 20px;">Nenhum chamado registrado.</td></tr>
+            <tr><td colspan="6" style="text-align: center; padding: 20px;">Nenhum chamado registrado.</td></tr>
             {% endfor %}
         </tbody>
     </table>
