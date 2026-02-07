@@ -4,123 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Chamados TI - Souza Araujo</title>
+    <title>Portal de Chamados - Souza Araujo</title>
     <style>
         :root {
             --azul-primario: #003366;
             --vermelho-logo: #cc0000;
             --cinza-fundo: #f8f9fa;
+            --verde-sucesso: #28a745;
+            --laranja-alerta: #fd7e14;
         }
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--cinza-fundo);
-            margin: 0;
-            padding: 0;
-        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--cinza-fundo); margin: 0; padding: 0; }
 
-        /* Header ajustado para Logos Grandes */
         header {
-            background-color: white;
-            color: var(--azul-primario);
-            padding: 20px 40px; /* Mais espaço interno */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-bottom: 6px solid var(--azul-primario); /* Linha mais grossa para destaque */
-            position: relative;
-            min-height: 180px; /* Garante altura mínima para a logo */
-            display: flex;
-            align-items: center;
+            background-color: white; color: var(--azul-primario); padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-bottom: 6px solid var(--azul-primario);
+            position: relative; min-height: 180px; display: flex; align-items: center;
         }
 
-        /* Linha Vermelha (Metade Direita) */
-        header::after {
-            content: "";
-            position: absolute;
-            bottom: -6px;
-            right: 0;
-            width: 50%;
-            border-bottom: 6px solid var(--vermelho-logo);
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        /* LOGO MAXIMIZADA: Aumentada para 180px para ler o lema */
-        .logo-img {
-            height: 180px; 
-            width: auto;
-            display: block;
-            transition: transform 0.3s;
-        }
-
-        /* Frase Centralizada */
-        .frase-central {
-            position: absolute;
-            left: 55%; /* Leve ajuste para não bater na logo gigante */
-            transform: translateX(-50%);
-            white-space: nowrap;
-            text-align: center;
-        }
-
-        .frase-central h1 {
-            margin: 0;
-            font-size: 38px; /* Aumentei o texto para acompanhar a logo */
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
-        }
-
+        header::after { content: ""; position: absolute; bottom: -6px; right: 0; width: 50%; border-bottom: 6px solid var(--vermelho-logo); }
+        .header-content { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1600px; margin: 0 auto; }
+        .logo-img { height: 180px; width: auto; display: block; }
+        .frase-central { position: absolute; left: 55%; transform: translateX(-50%); white-space: nowrap; text-align: center; }
+        .frase-central h1 { margin: 0; font-size: 38px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
         .texto-azul { color: var(--azul-primario); }
         .texto-vermelho { color: var(--vermelho-logo); }
 
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+        .container { max-width: 1200px; margin: 40px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+        .form-section { display: flex; flex-direction: column; gap: 15px; }
+        
+        .reserva-section { background: #f0f4f8; padding: 20px; border-radius: 8px; border: 1px solid #d1d9e0; }
 
-        /* Mantendo o restante do CSS padrão para funcionamento */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            background: #fdfdfd;
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid #eee;
-        }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; margin-bottom: 10px; }
 
-        input, select, textarea {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
+        .btn-enviar { background-color: var(--vermelho-logo); color: white; border: none; padding: 18px; font-size: 18px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn-enviar:hover { background-color: #a30000; }
 
-        .btn-enviar {
-            background-color: var(--vermelho-logo);
-            color: white;
-            border: none;
-            padding: 18px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-        }
+        /* Estilo da Tabela de Acompanhamento */
+        .painel-chamados { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+        .painel-chamados th { background-color: var(--azul-primario); color: white; padding: 12px; text-align: left; }
+        .painel-chamados td { padding: 12px; border-bottom: 1px solid #eee; }
+        
+        .status-badge { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; font-size: 11px; text-transform: uppercase; }
+        .bg-pendente { background-color: var(--vermelho-logo); }
+        .bg-andamento { background-color: var(--laranja-alerta); }
+        .bg-concluido { background-color: var(--verde-sucesso); }
+        
+        .prioridade-txt { font-weight: bold; }
+        .msg-alerta { padding: 15px; margin-bottom: 20px; border-radius: 6px; border: 1px solid; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-        th { background-color: var(--azul-primario); color: white; padding: 15px; text-align: left; }
-        td { padding: 15px; border-bottom: 1px solid #ddd; }
+        h3 { margin-top: 0; color: var(--azul-primario); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        label { font-weight: bold; font-size: 14px; color: #333; }
     </style>
 </head>
 <body>
@@ -128,88 +64,173 @@
 <header>
     <div class="header-content">
         <img src="{% static 'logo_souza_araujo.png' %}" alt="Logo Souza Araujo" class="logo-img">
-
         <div class="frase-central">
-            <h1>
-                <span class="texto-azul">LOGÍSTICA</span> 
-                <span class="texto-azul">-</span> 
-                <span class="texto-vermelho">SUPORTE TI</span>
-            </h1>
+            <h1><span class="texto-azul">LOGÍSTICA</span> <span class="texto-azul">-</span> <span class="texto-vermelho">SUPORTE DE TI</span></h1>
         </div>
-
         <div style="width: 200px;"></div>
     </div>
 </header>
 
 <div class="container">
-    <h3>📝 Abrir Novo Chamado</h3>
     
+    {% if messages %}
+        {% for message in messages %}
+            <div class="msg-alerta" style="{% if message.tags == 'error' %} background: #f8d7da; border-color: #f5c6cb; color: #721c24; {% else %} background: #d4edda; border-color: #c3e6cb; color: #155724; {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="form-grid">
-            <select name="titulo" required style="grid-column: span 2;">
-                <option value="">Selecione o Tipo de Problema</option>
-                <optgroup label="Rede e Internet">
-                    <option value="Sem Internet">Sem Internet</option>
-                    <option value="Lentidão no Sistema">Lentidão no Sistema</option>
-                </optgroup>
-                <optgroup label="Equipamentos">
-                    <option value="Computador/Notebook">Computador/Notebook não liga</option>
-                    <option value="Impressora">Problema na Impressora</option>
-                </optgroup>
-                <option value="Outros">Outros</option>
-            </select>
-                         
-            <select name="setor" required>
-                <option value="">Selecione seu Setor</option>
-                <option value="Operacional/Gate">Operacional/Gate</option>
-                <option value="Manutencao/Almoxarifado">Manutenção/Almoxarifado</option>
-                <option value="Financeiro">Financeiro</option>
-                <option value="RH">RH</option>
-                <option value="Comercial">Comercial</option>
-            </select>
+        
+        <div class="main-grid">
+            <div class="form-section">
+                <h3>📝 Abrir um novo chamado</h3>
+                
+                <label>Tipo de Problema / Assunto:</label>
+                <select name="titulo" required>
+                    <option value="">Selecione...</option>
+                    <option value="Reserva de Sala" style="font-weight: bold; color: var(--azul-primario);">📅 APENAS RESERVA DE SALA</option>
+                    <optgroup label="Sistemas e Softwares">
+                        <option value="Globus">Globus</option>
+                        <option value="Oráculo">Oráculo</option>
+                    </optgroup>
+                    <optgroup label="Rede e Internet">
+                        <option value="Sem Internet">Sem Internet</option>
+                        <option value="Lentidão no Sistema">Lentidão no Sistema</option>
+                    </optgroup>
+                    <optgroup label="Equipamentos">
+                        <option value="Computador/Notebook não liga">Computador/Notebook não liga</option>
+                        <option value="Problema na Impressora">Problema na Impressora</option>
+                    </optgroup>
+                    <option value="Outros">Outros</option>
+                </select>
 
-            <input type="text" name="ramal" placeholder="Ramal/Telefone" required>
-            <input type="text" name="solicitante" placeholder="Seu Nome" required>
-            
-            <textarea name="descricao" placeholder="Detalhes do problema..." rows="3" style="grid-column: span 2;"></textarea>
-            
-            <div style="grid-column: span 2;">
-                <label style="display:block; margin-bottom:5px; color:#666; font-size: 14px;">Anexar print do erro (opcional):</label>
-                <input type="file" name="imagem" accept="image/*">
+                <label>Seu Setor:</label>
+                <select name="setor" required>
+                    <option value="">Selecione...</option>
+                    <option value="Diretoria">Diretoria</option>
+                    <option value="Juridico">Jurídico</option>
+                    <option value="Financeiro">Financeiro</option>
+                    <option value="Compras">Compras</option>
+                    <option value="Contabilidade">Contabilidade</option>
+                    <option value="Capital Humano">Capital Humano</option>
+                    <option value="Comercial">Comercial</option>
+                    <option value="Operacional/Gate">Operacional/Gate</option>
+                    <option value="Manutencao/Almoxarifado">Manutenção/Almoxarifado</option>
+                </select>
+
+                <input type="text" name="solicitante" placeholder="Seu Nome Completo" required>
+                <input type="text" name="ramal" placeholder="Seu Ramal (Obrigatório para concluir)" required>
+                <textarea name="descricao" placeholder="Detalhes do problema ou pauta da reserva..." rows="3"></textarea>
+                
+                <label>Anexar Imagem (Erro):</label>
+                <input type="file" name="imagem">
             </div>
 
-            <button type="submit" class="btn-enviar" style="grid-column: span 2;">ENVIAR CHAMADO</button>
+            <div class="form-section">
+                <div class="reserva-section">
+                    <h3>📅 Agendar Sala de Reunião</h3>
+                    <label>Escolha a Sala:</label>
+                    <select name="sala_selecionada">
+                        <option value="nenhuma">Nenhuma (Apenas chamado de TI)</option>
+                        <option value="Sala 01">Sala de Reunião 01</option>
+                        <option value="Sala 02">Sala de Reunião 02</option>
+                    </select>
+
+                    <label>Data:</label>
+                    <input type="date" name="data_reserva">
+
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1;">
+                            <label>Início:</label>
+                            <select name="hora_inicio">
+                                <option value="">--:--</option>
+                                <option value="08:00">08:00</option><option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option><option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option><option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option><option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option><option value="17:00">17:00</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label>Término:</label>
+                            <select name="hora_fim">
+                                <option value="">--:--</option>
+                                <option value="09:00">09:00</option><option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option><option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option><option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option><option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option><option value="18:00">18:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p style="font-size: 11px; color: var(--vermelho-logo); margin-top: 10px;">* Diretoria possui prioridade em reservas.</p>
+                </div>
+                <button type="submit" class="btn-enviar">ENVIAR SOLICITAÇÃO</button>
+            </div>
         </div>
     </form>
 
-    <br><hr>
-    
-    <h3>📊 Painel de Acompanhamento</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Solicitante</th>
-                <th>Assunto</th>
-                <th>Status</th>
-                <th>Prioridade</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for chamado in chamados %}
-            <tr>
-                <td>{{ chamado.data_criacao|date:"d/m/y H:i" }}</td>
-                <td>{{ chamado.solicitante }}</td>
-                <td><strong>{{ chamado.titulo }}</strong></td>
-                <td><span class="status-concluido">{{ chamado.status }}</span></td>
-                <td>{{ chamado.prioridade|default:"---" }}</td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5" style="text-align: center; padding: 20px;">Nenhum chamado registrado.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <hr>
+
+    <h3>📊 Acompanhamento de Chamados & Reservas</h3>
+    <div style="overflow-x: auto;">
+        <table class="painel-chamados">
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Solicitante</th>
+                    <th>Assunto / Problema</th>
+                    <th>Setor</th>
+                    <th>Status</th>
+                    <th>Prioridade</th>
+                    <th>Técnico Responsável</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for chamado in chamados %}
+                <tr>
+                    <td>{{ chamado.data_criacao|date:"d/m/Y H:i" }}</td>
+                    <td><strong>{{ chamado.solicitante }}</strong></td>
+                    <td>
+                        {{ chamado.titulo }}
+                        {% if chamado.sala_selecionada != 'nenhuma' %}
+                           <br><small style="color: blue;">(Reserva: {{ chamado.sala_selecionada }})</small>
+                        {% endif %}
+                    </td>
+                    <td>{{ chamado.setor }}</td>
+                    <td>
+                        <span class="status-badge 
+                            {% if chamado.status == 'Pendente' %}bg-pendente
+                            {% elif chamado.status == 'Em Andamento' %}bg-andamento
+                            {% else %}bg-concluido{% endif %}">
+                            {{ chamado.status }}
+                        </span>
+                    </td>
+                    <td class="prioridade-txt" style="{% if chamado.prioridade == 'Urgência' %}color: red;{% endif %}">
+                        {{ chamado.prioridade }}
+                    </td>
+                    <td>
+                        {% if chamado.tecnico_responsavel %}
+                            👨‍🔧 {{ chamado.tecnico_responsavel }}
+                        {% else %}
+                            <span style="color: #999;">Aguardando...</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 20px;">Nenhum chamado aberto no momento.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <center style="margin-top: 20px;">
+        <a href="/dashboard/" style="text-decoration: none; color: var(--azul-primario); font-weight: bold;">Ver Gráficos e Salas Ocupadas →</a>
+    </center>
 </div>
 
 </body>
